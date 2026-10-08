@@ -16,15 +16,6 @@ AItem::AItem()
 void AItem::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("BeginPlay Called test text	"));
-	
-	if(GEngine)
-	{
-		GEngine->AddOnScreenDebugMessage(1, 60.0f, FColor::Yellow, TEXT("Item on screen Message"));
-	}
-
-	DRAW_SPHERE( GetActorLocation());
-	DRAW_VECTOR( GetActorLocation(), GetActorLocation() + GetActorForwardVector() * 100.f);
 	
 }
 
@@ -32,14 +23,11 @@ void AItem::BeginPlay()
 void AItem::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	float MoveSpeed = 50.f;
+    float RotationSpeed = 45.f;
 	//UE_LOG(LogTemp, Warning, TEXT("Delta time:	%f"), DeltaTime);
-
-	if(GEngine)
-	{
-		GEngine->AddOnScreenDebugMessage(1, 60.0f, FColor::Turquoise, FString::Printf(TEXT("Delta time:	 			%f"), DeltaTime));
-	}
-
-	
-	
-	
+	AddActorWorldOffset(FVector(DeltaTime*MoveSpeed, 0.f, 0.f));
+	AddActorWorldRotation(FRotator(0.f, DeltaTime*RotationSpeed, 0.f));
+	DRAW_SPHERE_single_frame(GetActorLocation());
+	DRAW_VECTOR_single_frame(GetActorLocation(), GetActorLocation() + GetActorForwardVector()*100.f);
 }
