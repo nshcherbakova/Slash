@@ -22,5 +22,8 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
+private:
+	float runnungTime = 0.f;
+	float amplitude = 0.25f;
+	float timeConstant = 5.f;
 };
