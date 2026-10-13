@@ -22,8 +22,20 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-private:
-	float runnungTime = 0.f;
+
+protected:
+	UFUNCTION(BlueprintPure)
+	float TransformSin();
+
+	UFUNCTION(BlueprintPure)
+	float TransformCos();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, category = "Sine parameters")
 	float amplitude = 0.25f;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, category = "Sine parameters")
 	float timeConstant = 5.f;
+//private:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, category = "Sine parameters")
+	float runningTime = 0.f;
 };

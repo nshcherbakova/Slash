@@ -24,10 +24,22 @@ void AItem::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	
-	runnungTime += DeltaTime;
-	float deltaZ = amplitude*FMath::Sin(runnungTime * timeConstant);
-	AddActorWorldOffset(FVector(0.f, 0.f, deltaZ));
+	runningTime += DeltaTime;
+	//float deltaZ = amplitude*FMath::Sin(runnungTime * timeConstant);
+	//AddActorWorldOffset(FVector(0.f, 0.f, deltaZ));
 
 	DRAW_SPHERE_single_frame(GetActorLocation());
 	DRAW_VECTOR_single_frame(GetActorLocation(), GetActorLocation() + GetActorForwardVector()*100.f);
+}
+
+
+float AItem::TransformSin()
+{
+	return  amplitude*FMath::Sin(runningTime * timeConstant);
+}
+
+
+float AItem::TransformCos()
+{
+	return  amplitude*FMath::Cos(runningTime * timeConstant);
 }
