@@ -38,4 +38,8 @@ protected:
 //private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, category = "Sine parameters")
 	float runningTime = 0.f;
-};
+
+	private:
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent* itemMesh;
+};	
