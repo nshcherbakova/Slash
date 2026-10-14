@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "Components/CapsuleComponent.h"
+
 #include "Bird.generated.h"
 
 UCLASS()
@@ -29,5 +29,7 @@ public:
 
 	private:
 	UPROPERTY(VisibleAnywhere)
-	UCapsuleComponent* capsule;
+	class UCapsuleComponent* capsule;
+	UPROPERTY(VisibleAnywhere)
+	class USkeletalMeshComponent* bird_mesh;
 };

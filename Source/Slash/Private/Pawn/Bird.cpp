@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
+#include "Components/CapsuleComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "Pawn/Bird.h"
 
 // Sets default values
@@ -12,6 +13,9 @@ ABird::ABird()
 	capsule->SetCapsuleHalfHeight(20.f);
 	capsule->SetCapsuleRadius(15.f);
 	SetRootComponent(capsule);
+	
+	bird_mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("BirdMesh"));
+	bird_mesh->SetupAttachment(GetRootComponent());
 }
 
 // Called when the game starts or when spawned
