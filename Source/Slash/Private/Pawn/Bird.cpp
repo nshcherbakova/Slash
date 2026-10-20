@@ -3,6 +3,8 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Pawn/Bird.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "Camera/CameraComponent.h"
 
 // Sets default values
 ABird::ABird()
@@ -16,6 +18,16 @@ ABird::ABird()
 	
 	bird_mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("BirdMesh"));
 	bird_mesh->SetupAttachment(GetRootComponent());
+
+	spring_arm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
+	spring_arm->SetupAttachment(GetRootComponent());
+	spring_arm->TargetArmLength = 300.f;
+
+	camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	camera->SetupAttachment(spring_arm);
+
+	AutoPossessPlayer = EAutoReceiveInput::Player0;
+
 }
 
 // Called when the game starts or when spawned
@@ -36,6 +48,29 @@ void ABird::Tick(float DeltaTime)
 void ABird::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
+	PlayerInputComponent->BindAxis(FName("MoveForward"), this, &ABird::MoveForward);
+	PlayerInputComponent->BindAxis(FName("Turn"), this, &ABird::Turn);
+	PlayerInputComponent->BindAxis(FName("LookUp"), this, &ABird::LookUp);
 }
+
+ void ABird::MoveForward(float Value) 
+ {
+	if(Controller && Value != 0.f)
+	{
+		FVector Forward = GetActorForwardVector();
+		AddMovementInput(Forward, Value);	
+	}
+ }
+
+  void ABird::Turn(float Value) 
+ {
+	AddControllerYawInput(Value);
+	UE_LOG(LogTemp, Warning, TEXT("Turn %f"), Value);
+ }
+
+  void ABird::LookUp(float Value) 
+ {
+	AddControllerPitchInput(Value);
+	UE_LOG(LogTemp, Warning, TEXT("LookUp %f"), Value);
+ }
 

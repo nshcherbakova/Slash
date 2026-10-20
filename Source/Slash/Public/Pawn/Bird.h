@@ -20,6 +20,9 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	void MoveForward(float Value) ;
+	void Turn(float Value) ;
+	void LookUp(float Value) ;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -27,9 +30,13 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	private:
+private:
 	UPROPERTY(VisibleAnywhere)
 	class UCapsuleComponent* capsule;
 	UPROPERTY(VisibleAnywhere)
 	class USkeletalMeshComponent* bird_mesh;
+	UPROPERTY(VisibleAnywhere)
+	class USpringArmComponent* spring_arm;
+	UPROPERTY(VisibleAnywhere)
+	class UCameraComponent* camera;
 };
